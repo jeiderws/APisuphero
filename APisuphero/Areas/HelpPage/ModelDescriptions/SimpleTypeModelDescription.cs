@@ -1,0 +1,6 @@
+namespace APisuphero.Areas.HelpPage.ModelDescriptions
+{
+    public class SimpleTypeModelDescription : ModelDescription
+    {
+    }
+}
