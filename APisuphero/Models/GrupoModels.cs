@@ -11,13 +11,11 @@ namespace APisuphero.Models
         {
             ID = gp.ID;
             Nombre = gp.Nombre;
-            IDSuperHeroe = gp.SuperHeroe.ToList().Select(x => new Superheromodels(x)).ToList();
-            IDMisiones = gp.Misiones.ToList().Select(x => new Misionesmodels(x)).ToList();
+
             
         }
         public int ID { get; set; }
         public string Nombre { get; set; }
-        public List < Superheromodels> IDSuperHeroe { get; set; }
-        public List < Misionesmodels> IDMisiones { get; set; }
+       
     }
 }

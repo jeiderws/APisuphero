@@ -12,6 +12,7 @@ using APisuphero.Models;
 
 namespace APisuphero.Controllers
 {
+    [Authorize]
     public class Heroe_PoderController : ApiController
     {
         private SuperHeroesEntities db = new SuperHeroesEntities();

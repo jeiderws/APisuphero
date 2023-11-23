@@ -212,6 +212,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MisionController.cs" />
     <Compile Include="Controllers\PoderController.cs" />
+    <Compile Include="Controllers\RegistroController.cs" />
     <Compile Include="Controllers\SuperheroesController.cs" />
     <Compile Include="Controllers\TipoMionesController.cs" />
     <Compile Include="Controllers\GeneradorTokensController.cs" />
@@ -255,6 +256,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PoderModels.cs" />
+    <Compile Include="Models\Registrosuperhero.cs" />
     <Compile Include="Models\SuperHeroe.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

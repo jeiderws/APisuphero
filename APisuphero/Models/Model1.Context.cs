@@ -25,12 +25,12 @@ namespace APisuphero.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Grupo> Grupo { get; set; }
         public virtual DbSet<Heroe_Poder> Heroe_Poder { get; set; }
         public virtual DbSet<Heroes_Misiones> Heroes_Misiones { get; set; }
         public virtual DbSet<Misiones> Misiones { get; set; }
         public virtual DbSet<Poder> Poder { get; set; }
         public virtual DbSet<SuperHeroe> SuperHeroe { get; set; }
         public virtual DbSet<TipoMision> TipoMision { get; set; }
+        public virtual DbSet<Grupo> Grupo { get; set; }
     }
 }

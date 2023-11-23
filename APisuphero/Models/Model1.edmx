@@ -11,8 +11,6 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
-          <Property Name="IDSuperHeroe" Type="int" />
-          <Property Name="IDMisiones" Type="int" />
         </EntityType>
         <EntityType Name="Heroe_Grupo">
           <Key>
@@ -239,17 +237,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SuperHeroesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Grupo">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IDSuperHeroe" Type="Int32" />
-          <Property Name="IDMisiones" Type="Int32" />
-          <NavigationProperty Name="SuperHeroe" Relationship="Self.Heroe_Grupo" FromRole="Grupo" ToRole="SuperHeroe" />
-          <NavigationProperty Name="Misiones" Relationship="Self.MisonesGrupo" FromRole="Grupo" ToRole="Misiones" />
-        </EntityType>
         <EntityType Name="Heroe_Poder">
           <Key>
             <PropertyRef Name="IDPoder" />
@@ -281,7 +268,7 @@
           <Property Name="IDTipo" Type="Int32" />
           <NavigationProperty Name="Heroes_Misiones" Relationship="Self.FK_Heroes_Misiones_Misiones" FromRole="Misiones" ToRole="Heroes_Misiones" />
           <NavigationProperty Name="TipoMision" Relationship="Self.FK_Misiones_TipoMision" FromRole="Misiones" ToRole="TipoMision" />
-          <NavigationProperty Name="Grupo" Relationship="Self.MisonesGrupo" FromRole="Misiones" ToRole="Grupo" />
+          <NavigationProperty Name="Grupo" Relationship="SuperHeroesModel.MisonesGrupo" FromRole="Misiones" ToRole="Grupo" />
         </EntityType>
         <EntityType Name="Poder">
           <Key>
@@ -301,8 +288,8 @@
           <Property Name="PlanetaOrigen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Heroe_Poder" Relationship="Self.FK_Heroe_Poder_SuperHeroe" FromRole="SuperHeroe" ToRole="Heroe_Poder" />
           <NavigationProperty Name="Heroes_Misiones" Relationship="Self.FK_Heroes_Misiones_SuperHeroe" FromRole="SuperHeroe" ToRole="Heroes_Misiones" />
-          <NavigationProperty Name="Grupo" Relationship="Self.Heroe_Grupo" FromRole="SuperHeroe" ToRole="Grupo" />
           <Property Name="contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Grupo" Relationship="SuperHeroesModel.Heroe_Grupo" FromRole="SuperHeroe" ToRole="Grupo" />
         </EntityType>
         <EntityType Name="TipoMision">
           <Key>
@@ -372,16 +359,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Heroe_Grupo">
-          <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
-          <End Role="SuperHeroe" Type="Self.SuperHeroe" Multiplicity="*" />
-        </Association>
-        <Association Name="MisonesGrupo">
-          <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
-          <End Role="Misiones" Type="Self.Misiones" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="SuperHeroesEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Grupo" EntityType="Self.Grupo" />
           <EntitySet Name="Heroe_Poder" EntityType="Self.Heroe_Poder" />
           <EntitySet Name="Heroes_Misiones" EntityType="Self.Heroes_Misiones" />
           <EntitySet Name="Misiones" EntityType="Self.Misiones" />
@@ -408,31 +386,39 @@
             <End Role="TipoMision" EntitySet="TipoMision" />
             <End Role="Misiones" EntitySet="Misiones" />
           </AssociationSet>
-          <AssociationSet Name="Heroe_Grupo" Association="Self.Heroe_Grupo">
+          <EntitySet Name="Grupo" EntityType="SuperHeroesModel.Grupo" />
+          <AssociationSet Name="Heroe_Grupo" Association="SuperHeroesModel.Heroe_Grupo">
             <End Role="Grupo" EntitySet="Grupo" />
             <End Role="SuperHeroe" EntitySet="SuperHeroe" />
           </AssociationSet>
-          <AssociationSet Name="MisonesGrupo" Association="Self.MisonesGrupo">
+          <AssociationSet Name="MisonesGrupo" Association="SuperHeroesModel.MisonesGrupo">
             <End Role="Grupo" EntitySet="Grupo" />
             <End Role="Misiones" EntitySet="Misiones" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
+        <EntityType Name="Grupo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SuperHeroe" Relationship="SuperHeroesModel.Heroe_Grupo" FromRole="Grupo" ToRole="SuperHeroe" />
+          <NavigationProperty Name="Misiones" Relationship="SuperHeroesModel.MisonesGrupo" FromRole="Grupo" ToRole="Misiones" />
+        </EntityType>
+        <Association Name="Heroe_Grupo">
+          <End Type="SuperHeroesModel.Grupo" Role="Grupo" Multiplicity="*" />
+          <End Type="SuperHeroesModel.SuperHeroe" Role="SuperHeroe" Multiplicity="*" />
+        </Association>
+        <Association Name="MisonesGrupo">
+          <End Type="SuperHeroesModel.Grupo" Role="Grupo" Multiplicity="*" />
+          <End Type="SuperHeroesModel.Misiones" Role="Misiones" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SuperHeroesModelStoreContainer" CdmEntityContainer="SuperHeroesEntities">
-          <EntitySetMapping Name="Grupo">
-            <EntityTypeMapping TypeName="SuperHeroesModel.Grupo">
-              <MappingFragment StoreEntitySet="Grupo">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="IDSuperHeroe" ColumnName="IDSuperHeroe" />
-                <ScalarProperty Name="IDMisiones" ColumnName="IDMisiones" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Heroe_Poder">
             <EntityTypeMapping TypeName="SuperHeroesModel.Heroe_Poder">
               <MappingFragment StoreEntitySet="Heroe_Poder">
@@ -487,23 +473,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Grupo">
+            <EntityTypeMapping TypeName="SuperHeroesModel.Grupo">
+              <MappingFragment StoreEntitySet="Grupo">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="Heroe_Grupo" TypeName="SuperHeroesModel.Heroe_Grupo" StoreEntitySet="Heroe_Grupo">
-            <EndProperty Name="Grupo">
-              <ScalarProperty Name="ID" ColumnName="IDGrupo" />
-            </EndProperty>
             <EndProperty Name="SuperHeroe">
               <ScalarProperty Name="ID" ColumnName="IDHeroe" />
             </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="MisonesGrupo" TypeName="SuperHeroesModel.MisonesGrupo" StoreEntitySet="MisonesGrupo">
             <EndProperty Name="Grupo">
               <ScalarProperty Name="ID" ColumnName="IDGrupo" />
             </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="MisonesGrupo" TypeName="SuperHeroesModel.MisonesGrupo" StoreEntitySet="MisonesGrupo">
             <EndProperty Name="Misiones">
               <ScalarProperty Name="ID" ColumnName="IDMisiones" />
             </EndProperty>
+            <EndProperty Name="Grupo">
+              <ScalarProperty Name="ID" ColumnName="IDGrupo" />
+            </EndProperty>
           </AssociationSetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

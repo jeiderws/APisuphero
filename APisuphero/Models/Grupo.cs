@@ -23,8 +23,6 @@ namespace APisuphero.Models
     
         public int ID { get; set; }
         public string Nombre { get; set; }
-        public Nullable<int> IDSuperHeroe { get; set; }
-        public Nullable<int> IDMisiones { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SuperHeroe> SuperHeroe { get; set; }

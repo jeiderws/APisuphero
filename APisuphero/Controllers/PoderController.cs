@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace APisuphero.Controllers
 {
+    [Authorize]
     public class PoderController : ApiController
     {
 

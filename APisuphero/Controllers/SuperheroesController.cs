@@ -26,14 +26,23 @@ namespace APisuphero.Controllers
         // POST: api/Superheroes
         public IHttpActionResult Post([FromBody]SuperHeroe sp)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
 
+                }
+                bd.SuperHeroe.Add(sp);
+                bd.SaveChanges();
+                return CreatedAtRoute("Defaultapi", new { id = sp.ID }, sp);
             }
-            bd.SuperHeroe.Add(sp);
-            bd.SaveChanges();
-            return CreatedAtRoute("Defaultapi", new { id =sp.ID }, sp);
+            catch (Exception ex)
+            {
+
+                return Content(System.Net.HttpStatusCode.BadRequest, ex);
+            }
+           
         }
 
         // PUT: api/Superheroes/5
