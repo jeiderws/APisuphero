@@ -20,7 +20,13 @@ namespace APisuphero.Controllers
         // GET: api/Heroe_Poder
         public IHttpActionResult GetHeroe_Poder()
         {
-            return Ok(db.Heroe_Poder.ToList().Select(x => new HeroPoderModels(x)).FirstOrDefault());
+            List<HeroPoderModels> heroPoderModelsList = db.Heroe_Poder
+             .Select(hp => new HeroPoderModels(hp)).ToList();
+            if (heroPoderModelsList == null || heroPoderModelsList.Count == 0)
+            {
+                return NotFound(); 
+            }
+            return Ok(heroPoderModelsList);
         }
 
         //GET: api/Heroe_Poder/5
