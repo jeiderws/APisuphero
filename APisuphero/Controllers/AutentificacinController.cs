@@ -11,7 +11,7 @@ namespace APisuphero.Controllers
     public class AutentificacinController : ApiController
     {
         [HttpPost]
-        [Route("auth")]
+        [Route("api/Loguin")]
         public IHttpActionResult Index([FromBody] LoguinRequest login)
         {
 
@@ -34,7 +34,9 @@ namespace APisuphero.Controllers
                     {
                         Token = GeneradorTokensController.generartoken(usuario.ID.ToString()),
                         DateTime = DateTime.Now,
-                        User = usuario
+                        User = usuario,
+                        sucees = true
+                        
 
                     });
                 }

@@ -12,7 +12,7 @@ using APisuphero.Models;
 
 namespace APisuphero.Controllers
 {
-    [Authorize]
+   
     public class Heroe_PoderController : ApiController
     {
         private SuperHeroesEntities db = new SuperHeroesEntities();
@@ -20,21 +20,21 @@ namespace APisuphero.Controllers
         // GET: api/Heroe_Poder
         public IHttpActionResult GetHeroe_Poder()
         {
-            return Ok(db.Heroe_Poder.FirstOrDefault());
+            return Ok(db.Heroe_Poder.ToList().Select(x => new HeroPoderModels(x)).FirstOrDefault());
         }
 
-        // GET: api/Heroe_Poder/5
-        //[ResponseType(typeof(Heroe_Poder))]
-        //public IHttpActionResult GetHeroe_Poder(int id)
-        //{
-        //    Heroe_Poder heroe_Poder = db.Heroe_Poder.Find(id);
-        //    if (heroe_Poder == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(heroe_Poder);
-        //}
+        //GET: api/Heroe_Poder/5
+        [ResponseType(typeof(Heroe_Poder))]
+        public IHttpActionResult GetHeroe_Poder(int idHeroe, int idPoder)
+        {
+            Heroe_Poder heroe_Poder = db.Heroe_Poder.Find(idHeroe,idPoder);
+            if (heroe_Poder == null)
+            {
+                return NotFound();
+            }
+            HeroPoderModels hero = new HeroPoderModels(heroe_Poder);
+            return Ok(hero);
+        }
 
         // PUT: api/Heroe_Poder/5
         [ResponseType(typeof(void))]

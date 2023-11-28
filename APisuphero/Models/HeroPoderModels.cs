@@ -7,6 +7,7 @@ namespace APisuphero.Models
 {
     public class HeroPoderModels
     {
+
         public HeroPoderModels( Heroe_Poder hp)
         {
           IDHeroe = hp.IDHeroe;

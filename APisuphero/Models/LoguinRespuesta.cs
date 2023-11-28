@@ -10,5 +10,6 @@ namespace APisuphero.Models
         public String Token { get; set; }
         public Superheromodels User { get; set; }
         public DateTime DateTime { get; set; }
+        public Boolean sucees { get; set; }
     }
 }
